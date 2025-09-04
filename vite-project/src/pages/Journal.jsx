@@ -131,7 +131,10 @@ const Journal = () => {
         {surveySubmitted ? (
           <p>🎉 Thank you for your feedback!</p>
         ) : (
-          <form onSubmit={handleSurveySubmit}>
+          <form onSubmit={handleSurveySubmit}
+          action = "https://formspree.io/f/mandlonr"
+          method = "POST"
+          >
             <label>
               1. What do you like about the app?
               <textarea
