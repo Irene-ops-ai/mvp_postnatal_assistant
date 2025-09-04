@@ -7,12 +7,6 @@ const Journal = () => {
   const [search, setSearch] = useState("");
   const [editingIndex, setEditingIndex] = useState(null);
 
-  // Survey states
-  const [survey, setSurvey] = useState({
-    like: "",
-    dislike: "",
-    suggestions: "",
-  });
   const [surveySubmitted, setSurveySubmitted] = useState(false);
 
   // Load entries from localStorage
@@ -58,13 +52,6 @@ const Journal = () => {
     (entry) =>
       entry.text && entry.text.toLowerCase().includes(search.toLowerCase())
   );
-
-  // Handle survey form submit
-  const handleSurveySubmit = (e) => {
-    e.preventDefault();
-    console.log("Survey responses:", survey);
-    setSurveySubmitted(true);
-  };
 
   return (
     <div className="journal-container">
@@ -131,41 +118,26 @@ const Journal = () => {
         {surveySubmitted ? (
           <p>🎉 Thank you for your feedback!</p>
         ) : (
-          <form onSubmit={handleSurveySubmit}
-          action = "https://formspree.io/f/mandlonr"
-          method = "POST"
+          <form
+            action="https://formspree.io/f/mandlonr"
+            method="POST"
+            onSubmit={() => setSurveySubmitted(true)}
           >
             <label>
               1. What do you like about the app?
-              <textarea
-                value={survey.like}
-                onChange={(e) => setSurvey({ ...survey, like: e.target.value })}
-                required
-              />
+              <textarea name="like" required />
             </label>
             <br />
 
             <label>
               2. What don’t you like about the app?
-              <textarea
-                value={survey.dislike}
-                onChange={(e) =>
-                  setSurvey({ ...survey, dislike: e.target.value })
-                }
-                required
-              />
+              <textarea name="dislike" required />
             </label>
             <br />
 
             <label>
               3. What would make the app better for you?
-              <textarea
-                value={survey.suggestions}
-                onChange={(e) =>
-                  setSurvey({ ...survey, suggestions: e.target.value })
-                }
-                required
-              />
+              <textarea name="suggestions" required />
             </label>
             <br />
 
